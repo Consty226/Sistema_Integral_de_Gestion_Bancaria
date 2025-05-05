@@ -1,3 +1,5 @@
+package Tarjetas;
+
 import java.util.Random;
 
 public class TarjetaCredito {
@@ -92,7 +94,7 @@ public class TarjetaCredito {
      */
 
     public String toString() {
-        return "TarjetaCredito {" +
+        return "Tarjetas.TarjetaCredito {" +
                 "numero='" + numeroTarjeta + '\'' +
                 ", limite=" + String.format("%.2f", limiteCredito) +
                 ", saldoDisponible=" + String.format("%.2f", saldoDisponible) +
