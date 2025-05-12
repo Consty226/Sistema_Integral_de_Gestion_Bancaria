@@ -28,4 +28,5 @@ bin/
 ### Mac OS ###
 .DS_Store
 .idea/inspectionProfiles/Project_Default.xml
-Sistema_Integral_de_Gestion_Bancaria.iml
+.idea/*
+*.iml

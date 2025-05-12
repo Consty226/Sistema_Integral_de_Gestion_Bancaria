@@ -1,8 +1,10 @@
-package Tarjetas;
+package Productos.Tarjetas;
+
+import Productos.Producto;
 
 import java.util.Random;
 
-public class TarjetaCredito {
+public class TarjetaCredito extends Producto {
 
     private final String numeroTarjeta;
     private final double limiteCredito;
@@ -94,7 +96,7 @@ public class TarjetaCredito {
      */
 
     public String toString() {
-        return "Tarjetas.TarjetaCredito {" +
+        return "Productos.Tarjetas.TarjetaCredito {" +
                 "numero='" + numeroTarjeta + '\'' +
                 ", limite=" + String.format("%.2f", limiteCredito) +
                 ", saldoDisponible=" + String.format("%.2f", saldoDisponible) +

@@ -1,4 +1,4 @@
-package CajaDeSeguridad;
+package Productos.CajaDeSeguridad;
 
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +48,5 @@ public class CajaDeSeguridadTest {
         assertEquals(100.0, caja.getMontoActual());
     }
     //esto es para que si intenta retirar en negativo , no le afecte al saldo que tiene depositado
-
-    @Test
 
 }

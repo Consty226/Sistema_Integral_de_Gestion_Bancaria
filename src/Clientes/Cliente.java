@@ -1,5 +1,10 @@
 package Clientes;
 
+import Productos.CajaDeSeguridad.CajaDeSeguridad;
+import Productos.Cuentas.Cuenta;
+import Productos.Prestamo.Prestamo;
+import Productos.Tarjetas.TarjetaCredito;
+
 import java.util.List;
 
 public abstract class Cliente {
@@ -19,7 +24,7 @@ public abstract class Cliente {
 
     // ---- Getters y Setters Relaciones ----
 
-    // Cuentas
+    // Productos.Cuentas
     public void vincularCuenta(Cuenta cuenta){
         this.cuentas.add(cuenta);
     }
@@ -36,7 +41,7 @@ public abstract class Cliente {
         return this.cuentas;
     }
 
-    // Tarjetas
+    // Productos.Tarjetas
     public void vincularTarjeta(TarjetaCredito tarjeta){
         this.tarjetas.add(tarjeta);
     }

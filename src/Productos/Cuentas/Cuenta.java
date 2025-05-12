@@ -1,6 +1,8 @@
-package Cuentas;
+package Productos.Cuentas;
 
-public abstract class Cuenta {
+import Productos.Producto;
+
+public abstract class Cuenta extends Producto {
     public String numeroCuenta;
     public String titular;
     public double saldo;

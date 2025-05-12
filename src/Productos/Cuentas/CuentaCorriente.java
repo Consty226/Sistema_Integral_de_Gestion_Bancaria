@@ -1,4 +1,4 @@
-package Cuentas;
+package Productos.Cuentas;
 
 public class CuentaCorriente extends Cuenta {
     private int limiteDescubierto;

@@ -1,4 +1,4 @@
-package Cuentas;
+package Productos.Cuentas;
 
 public class CajaDeAhorro extends Cuenta {
 

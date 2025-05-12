@@ -1,5 +1,7 @@
-package CajaDeSeguridad;
-public class CajaDeSeguridad {
+package Productos.CajaDeSeguridad;
+import Productos.Producto;
+
+public class CajaDeSeguridad extends Producto {
 
     private String claveDeAcceso;
     private double montoActual;
