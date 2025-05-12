@@ -1,14 +1,15 @@
 package Productos.Cuentas;
 
+import Clientes.Cliente;
 import Productos.Producto;
 
 public abstract class Cuenta extends Producto {
     public String numeroCuenta;
-    public String titular;
+    public Cliente titular;
     public double saldo;
 
     //Constructor
-    public Cuenta(String numeroCuenta, String titular, double saldoInicial) {
+    public Cuenta(String numeroCuenta, Cliente titular, double saldoInicial) {
         this.numeroCuenta = numeroCuenta;
         this.titular = titular;
         this.saldo = saldoInicial;
@@ -18,6 +19,8 @@ public abstract class Cuenta extends Producto {
     public void depositar(double monto) {
         if (monto > 0) {
             saldo += monto;
+        } else{
+            System.out.println("El monto debe ser mayor a 0.");
         }
     }
 
@@ -39,7 +42,7 @@ public abstract class Cuenta extends Producto {
         return numeroCuenta;
     }
 
-    public String getTitular() {
+    public Cliente getTitular() {
         return titular;
     }
 

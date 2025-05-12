@@ -76,4 +76,8 @@ public class Empleado {
         this.clienteEnAtencion = null;
     }
 
+    public boolean estaAtendiendo() {
+        return this.clienteEnAtencion != null;
+    }
+
 }
