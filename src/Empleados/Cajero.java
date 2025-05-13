@@ -1,7 +1,6 @@
 package Empleados;
 
 import Banco.Banco;
-import Clientes.Cliente;
 import Productos.Cuentas.Cuenta;
 
 public class Cajero extends Empleado {
@@ -10,7 +9,7 @@ public class Cajero extends Empleado {
         super(nombre, apellido, edad, salario, entidadBancaria);
     }
 
-    // Operaciones de Deposito
+    // Operaciones de Deposito (deberia utilizar overloading aca y en banco?????)
     public void depositarEnCuentaPorNumero(double monto, String numeroCuenta) {
         this.entidadBancaria.depositarEnCuentaPorNumero(numeroCuenta, monto);
     }
@@ -19,7 +18,7 @@ public class Cajero extends Empleado {
         this.entidadBancaria.depositarEnCuentaPorInstancia(cuenta, monto);
     }
 
-    // Operaciones de Retiro
+    // Operaciones de Retiro (deberia utilizar overloading aca y en banco?????)
     public void retirarDeCuentaPorNumero(double monto, String numeroCuenta) {
         this.entidadBancaria.retirarDeCuentaPorNumero(numeroCuenta, monto);
     }
@@ -28,7 +27,7 @@ public class Cajero extends Empleado {
         this.entidadBancaria.retirarDeCuentaPorInstancia(cuenta, monto);
     }
 
-    // Operaciones de Transferencia (deberia utilizar overloading aca y en banco?????)
+    // Operaciones de Transferencia  (deberia utilizar overloading aca y en banco?????)
     public void transferirPorNumeros(double monto, String numeroCuentaOrigen, String numeroCuentaDestino) {
         if(this.estaAtendiendo()){
             this.entidadBancaria.transferirPorNumero(this.clienteEnAtencion, numeroCuentaOrigen, numeroCuentaDestino, monto);
