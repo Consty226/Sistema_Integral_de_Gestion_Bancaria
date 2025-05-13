@@ -5,13 +5,12 @@ import Productos.Producto;
 
 public abstract class Cuenta extends Producto {
     public String numeroCuenta;
-    public Cliente titular;
     public double saldo;
 
     //Constructor
-    public Cuenta(String numeroCuenta, Cliente titular, double saldoInicial) {
+    public Cuenta(Cliente titular, String numeroCuenta, double saldoInicial) {
+        super(titular);
         this.numeroCuenta = numeroCuenta;
-        this.titular = titular;
         this.saldo = saldoInicial;
     }
 
@@ -40,10 +39,6 @@ public abstract class Cuenta extends Producto {
 
     public String getNumeroCuenta() {
         return numeroCuenta;
-    }
-
-    public Cliente getTitular() {
-        return titular;
     }
 
     public double getSaldo() {

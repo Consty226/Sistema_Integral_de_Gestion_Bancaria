@@ -1,4 +1,5 @@
 package Productos.CajaDeSeguridad;
+import Clientes.Cliente;
 import Productos.Producto;
 
 public class CajaDeSeguridad extends Producto {
@@ -6,7 +7,8 @@ public class CajaDeSeguridad extends Producto {
     private String claveDeAcceso;
     private double montoActual;
 
-    public CajaDeSeguridad(String claveDeAcceso){
+    public CajaDeSeguridad(Cliente titular, String claveDeAcceso){
+        super(titular);
         this.claveDeAcceso = claveDeAcceso;
         this.montoActual = 0;
         System.out.println("----------------------------------");

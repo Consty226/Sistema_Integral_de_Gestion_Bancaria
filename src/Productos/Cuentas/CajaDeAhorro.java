@@ -1,9 +1,11 @@
 package Productos.Cuentas;
 
+import Clientes.Cliente;
+
 public class CajaDeAhorro extends Cuenta {
 
-    public CajaDeAhorro(String numeroCuenta, String titular, double saldoInicial) {
-        super(numeroCuenta, titular, saldoInicial);
+    public CajaDeAhorro(Cliente titular, String numeroCuenta, double saldoInicial) {
+        super(titular, numeroCuenta, saldoInicial);
     }
 
     @Override
