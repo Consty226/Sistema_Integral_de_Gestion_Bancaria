@@ -1,5 +1,11 @@
 package Clientes;
 
+import CajaDeSeguridad.CajaDeSeguridad;
+import Cuentas.Cuenta;
+import Prestamo.Prestamo;
+import Tarjetas.TarjetaCredito;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Cliente {
@@ -15,6 +21,11 @@ public abstract class Cliente {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefonos = telefonos;
+
+        this.cuentas = new ArrayList<>();
+        this.tarjetas = new ArrayList<>();
+        this.prestamos = new ArrayList<>();
+        this.cajasDeSeguridad = new ArrayList<>(); //Se agrego los constructores de los Array
     }
 
     // ---- Getters y Setters Relaciones ----
@@ -53,13 +64,13 @@ public abstract class Cliente {
         return this.tarjetas;
     }
 
-    // Prestamos
+    // Préstamos
 
     public void vincularPrestamo(Prestamo prestamo){
         this.prestamos.add(prestamo);
     }
 
-    // Deberia implementarse un metodo para pagos de prestamos o tomar un prestamo especifico?
+    // Deberia implementarse un metodo para pagos de préstamos o tomar un prestamo especifico?
 
     public List<Prestamo> getPrestamos(){
         return this.prestamos;
