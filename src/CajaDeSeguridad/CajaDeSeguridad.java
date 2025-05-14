@@ -1,10 +1,17 @@
 package CajaDeSeguridad;
 public class CajaDeSeguridad {
 
+    private int numero;
+    private String descripcionContenido;
     private String claveDeAcceso;
     private double montoActual;
 
-    public CajaDeSeguridad(String claveDeAcceso){
+    //Se actualizaron los atributos para cumplir con la consigna “Cada caja de
+// seguridad posee un número y descripción del contenido. Su existencia está ligada al cliente.”
+
+    public CajaDeSeguridad(int numero, String descripcionContenido, String claveDeAcceso){
+        this.numero = numero;
+        this.descripcionContenido = descripcionContenido;
         this.claveDeAcceso = claveDeAcceso;
         this.montoActual = 0;
         System.out.println("----------------------------------");
@@ -26,6 +33,19 @@ public class CajaDeSeguridad {
             System.out.println("No tienes suficiente saldo para retirar esa cantidad.");
         }
     }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public String getDescripcionContenido() {
+        return descripcionContenido;
+    }
+
+    public void setDescripcionContenido(String descripcionContenido) {
+        this.descripcionContenido = descripcionContenido;
+    }
+
     public void depositarDinero(double cantidadDepositada){
         if (cantidadDepositada > 0) {
             montoActual += cantidadDepositada;
@@ -34,9 +54,11 @@ public class CajaDeSeguridad {
             System.out.println("La cantidad a depositar debe ser mayor que cero.");
         }
     }
+
     public String getClaveDeAcceso() {
         return claveDeAcceso;
     }
+
 
     public void setClaveDeAcceso(String claveDeAcceso) {
         this.claveDeAcceso = claveDeAcceso;

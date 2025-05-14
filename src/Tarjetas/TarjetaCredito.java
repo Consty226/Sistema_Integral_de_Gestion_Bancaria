@@ -10,7 +10,7 @@ public class TarjetaCredito {
 
     /**
      * Genera un número de tarjeta de crédito aleatorio de 16 dígitos.
-     * return Un String que representa el número de tarjeta generado.
+     * @return Un String que representa el número de tarjeta generado.
      */
     public static String generarNumeroTarjeta() {
         Random random = new Random();
@@ -23,9 +23,9 @@ public class TarjetaCredito {
 
     /**
      * El saldo disponible inicial es igual al límite de crédito.
-     *  numeroTarjeta El número único de la tarjeta de crédito.
-     *  limiteCredito El límite máximo de crédito permitido. Debe ser positivo.
-     *  IllegalArgumentException si el número de tarjeta es nulo/vacío o el límite es negativo.
+     * @param numeroTarjeta El número único de la tarjeta de crédito.
+     * @param limiteCredito El límite máximo de crédito permitido. Debe ser positivo.
+     * @throws IllegalArgumentException si el número de tarjeta es nulo/vacío o el límite es negativo.
      */
     public TarjetaCredito(String numeroTarjeta, double limiteCredito) {
         if (numeroTarjeta == null || numeroTarjeta.trim().isEmpty()) {
@@ -39,7 +39,7 @@ public class TarjetaCredito {
         this.saldoDisponible = limiteCredito; // Al principio, el saldo disponible es el límite total
     }
 
-    // Getters (Métodos para obtener los valores)
+    // --- Getters ---
 
     public String getNumeroTarjeta() {
         return numeroTarjeta;
@@ -53,11 +53,8 @@ public class TarjetaCredito {
         return saldoDisponible;
     }
 
-    /**
-     * Registra un consumo en la tarjeta si hay saldo disponible suficiente.
-     * El monto a consumir (debe ser mayor que 0).
-     * return true si el consumo fue exitoso, false si no hay saldo suficiente o el monto es inválido.
-     */
+    // --- Operaciones ---
+
     public boolean registrarConsumo(double monto) {
         if (monto <= 0) {
             System.out.println("Error: El monto del consumo debe ser positivo.");
@@ -74,11 +71,6 @@ public class TarjetaCredito {
         return true;
     }
 
-    /**
-     * Registra un pago en la tarjeta, aumentando el saldo disponible.
-     *  El monto a pagar (debe ser mayor que 0).
-     * return true si el pago fue exitoso, false si el monto es inválido.
-     */
     public boolean registrarPago(double monto) {
         if (monto <= 0) {
             System.out.println("Error: El monto del pago debe ser positivo.");
@@ -88,16 +80,30 @@ public class TarjetaCredito {
         System.out.println("Pago de $" + String.format("%.2f", monto) + " registrado. Nuevo saldo disponible: $" + String.format("%.2f", this.saldoDisponible));
         return true;
     }
-    /**
-     * Devuelve una representación en String del estado actual de la tarjeta.
-     * return una cadena con la información de la tarjeta.
-     */
 
+    // --- toString ---
+
+    @Override
     public String toString() {
-        return "Tarjetas.TarjetaCredito {" +
+        return "TarjetaCredito {" +
                 "numero='" + numeroTarjeta + '\'' +
                 ", limite=" + String.format("%.2f", limiteCredito) +
                 ", saldoDisponible=" + String.format("%.2f", saldoDisponible) +
                 '}';
+    }
+
+    // --- equals y hashCode (para Set) ---
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TarjetaCredito that = (TarjetaCredito) o;
+        return numeroTarjeta.equals(that.numeroTarjeta);
+    }
+
+    @Override
+    public int hashCode() {
+        return numeroTarjeta.hashCode();
     }
 }
