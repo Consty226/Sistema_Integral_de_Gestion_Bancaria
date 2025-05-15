@@ -1,27 +1,20 @@
-package Productos.CajaDeSeguridad;
+package Test;
 
-import Clientes.Cliente;
-import Clientes.Persona;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import Clientes.*;
+import Productos.CajaDeSeguridad.CajaDeSeguridad;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CajaDeSeguridadTest {
     CajaDeSeguridad caja;
 
-    @BeforeEach
-    void setUp() {
-        Cliente cliente = new Persona("Javier", "Calle 123", List.of("[\"123456789\"]"), 12345678);
-        this.caja = new CajaDeSeguridad(cliente, "1234");
-    }
-
     @Test
     void probarDepositoPositivo() {
+        Cliente cliente = new Persona("Javier", "Calle 123", List.of("[\"123456789\"]"), 12345678);
+        this.caja = new CajaDeSeguridad(cliente, "1234");
         this.caja.depositarDinero(100.0);
         assertEquals(100.0, caja.getMontoActual());
     }
@@ -29,6 +22,8 @@ public class CajaDeSeguridadTest {
 
     @Test
     void probarDepositoNegativo() {
+        Cliente cliente = new Persona("Javier", "Calle 123", List.of("[\"123456789\"]"), 12345678);
+        this.caja = new CajaDeSeguridad(cliente, "1234");
         this.caja.depositarDinero(-50.0);
         assertEquals(0.0, caja.getMontoActual());
     }
@@ -36,6 +31,8 @@ public class CajaDeSeguridadTest {
 
     @Test
     void probarRetiroConSaldo() {
+        Cliente cliente = new Persona("Javier", "Calle 123", List.of("[\"123456789\"]"), 12345678);
+        this.caja = new CajaDeSeguridad(cliente, "1234");
         this.caja.depositarDinero(200.0);
         this.caja.retirarDinero(50.0);
         assertEquals(150.0, caja.getMontoActual());
@@ -44,6 +41,8 @@ public class CajaDeSeguridadTest {
 
     @Test
     void probarRetiroSinSaldo() {
+        Cliente cliente = new Persona("Javier", "Calle 123", List.of("[\"123456789\"]"), 12345678);
+        this.caja = new CajaDeSeguridad(cliente, "1234");
         this.caja.retirarDinero(100.0);
         assertEquals(0.0, caja.getMontoActual());
     }
@@ -51,6 +50,8 @@ public class CajaDeSeguridadTest {
 
     @Test
     void probarRetiroNegativo() {
+        Cliente cliente = new Persona("Javier", "Calle 123", List.of("[\"123456789\"]"), 12345678);
+        this.caja = new CajaDeSeguridad(cliente, "1234");
         this.caja.depositarDinero(100.0);
         this.caja.retirarDinero(-20.0);
         assertEquals(100.0, caja.getMontoActual());
