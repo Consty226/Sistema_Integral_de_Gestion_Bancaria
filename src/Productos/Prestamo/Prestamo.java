@@ -24,6 +24,13 @@ public class Prestamo extends Producto {
     }
 
     public void recibirPago(double monto) {
+        if (monto > this.saldoRestante) {
+            System.out.println("El monto recibido es mayor al saldo restante");
+            System.out.println("Su cambio es de $" + (monto - this.saldoRestante));
+            this.saldoRestante = 0;
+            System.out.println("Su saldo restante es de $" + this.saldoRestante);
+
+        }
         this.saldoRestante -= monto;
     }
 
@@ -31,4 +38,11 @@ public class Prestamo extends Producto {
         return tasaDeInteres;
     }
 
+    public String toString() {
+        return "Prestamo {" +
+                "montoOtorgado=" + String.format("%.2f", montoOtorgado) +
+                ", tasaDeInteres=" + tasaDeInteres +
+                ", saldoRestante=" + String.format("%.2f", saldoRestante) +
+                '}';
+    }
 }
