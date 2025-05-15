@@ -3,6 +3,8 @@ package Empleados;
 import Banco.Banco;
 import Clientes.Cliente;
 
+import java.util.List;
+
 public class Empleado {
     private String nombre;
     private String apellido;
@@ -63,12 +65,12 @@ public class Empleado {
         if (this.clienteEnAtencion != null) {
             System.out.println("Ya hay un cliente en atención, terminando la atención.");
             this.terminarAtencion();
+        }
+        if (this.entidadBancaria.esClienteDelBanco(clienteEnAtencion)) {
+            System.out.println("No es un cliente registrado del banco.");
+            System.out.println("Cree o se registre el cliente para continuar.");
         } else {
-            if (!this.entidadBancaria.esClienteDelBanco(clienteEnAtencion)) {
-                System.out.println("No es un cliente registrado del banco.");
-            } else {
-                this.clienteEnAtencion = clienteEnAtencion;
-            }
+            this.clienteEnAtencion = clienteEnAtencion;
         }
     }
 
@@ -78,6 +80,18 @@ public class Empleado {
 
     public boolean estaAtendiendo() {
         return this.clienteEnAtencion != null;
+    }
+
+    public void crearYAtenderCliente(String nombre, String direccion, List<String> telefonos, int dniCuit, String tipo) {
+        Cliente cliente = this.entidadBancaria.crearCliente(nombre, direccion, telefonos, dniCuit, tipo);
+        if (cliente != null) {
+            this.atenderCliente(cliente);
+        }
+    }
+
+    public void agregarYAtenderCliente(Cliente cliente) {
+        this.entidadBancaria.agregarCliente(cliente);
+        this.atenderCliente(cliente);
     }
 
 }

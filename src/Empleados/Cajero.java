@@ -20,28 +20,54 @@ public class Cajero extends Empleado {
 
     // Operaciones de Retiro
     public void retirarDeCuenta(double monto, String numeroCuenta) {
-        this.entidadBancaria.retirarDeCuenta(numeroCuenta, monto);
+        if (!this.estaAtendiendo()){
+            System.out.println("No hay un cliente en atención");
+            return;
+        }
+        this.entidadBancaria.retirarDeCuenta(this.clienteEnAtencion, numeroCuenta, monto);
     }
 
     public void retirarDeCuenta(double monto, Cuenta cuenta) {
-        this.entidadBancaria.retirarDeCuenta(cuenta, monto);
+        if (!this.estaAtendiendo()){
+            System.out.println("No hay un cliente en atención");
+        }
+        this.entidadBancaria.retirarDeCuenta(this.clienteEnAtencion, cuenta, monto);
     }
 
     // Operaciones de Transferencia
     public void ejecutarTransferencia(double monto, String numeroCuentaOrigen, String numeroCuentaDestino) {
-        if(this.estaAtendiendo()){
-            this.entidadBancaria.realizarTransferencia(this.clienteEnAtencion, numeroCuentaOrigen, numeroCuentaDestino, monto);
-        }else {
+        if(!this.estaAtendiendo()){
             System.out.println("No hay un cliente en atención");
+            return;
         }
+        this.entidadBancaria.realizarTransferencia(this.clienteEnAtencion, numeroCuentaOrigen, numeroCuentaDestino, monto);
     }
 
     public void ejecutarTransferencia(double monto, Cuenta cuentaOrigen, Cuenta cuentaDestino) {
-        if(this.estaAtendiendo()){
-            this.entidadBancaria.realizarTransferencia(this.clienteEnAtencion, cuentaOrigen, cuentaDestino, monto);
-        } else {
+        if(!this.estaAtendiendo()){
             System.out.println("No hay un cliente en atención");
+            return;
         }
+
+        this.entidadBancaria.realizarTransferencia(this.clienteEnAtencion, cuentaOrigen, cuentaDestino, monto);
+
+    }
+
+    // Operaciones de Tarjetas
+    public void crearTarjetaCredito(String numeroTarjeta, double limiteCredito) {
+        if(!this.estaAtendiendo()){
+            System.out.println("No hay un cliente en atención");
+            return;
+    }
+        this.entidadBancaria.crearTarjetaCredito(this.clienteEnAtencion, numeroTarjeta, limiteCredito);
+    }
+
+    public void eliminarTarjetaCredito(String numeroTarjeta) {
+        if(!this.estaAtendiendo()){
+            System.out.println("No hay un cliente en atención");
+            return;
+    }
+        this.entidadBancaria.eliminarTarjetaCredito(this.clienteEnAtencion, numeroTarjeta);
     }
 
 

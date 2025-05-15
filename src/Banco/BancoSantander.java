@@ -6,11 +6,9 @@ import Productos.Cuentas.CajaDeAhorro;
 import Productos.Cuentas.CuentaCorriente;
 import Productos.Prestamo.Prestamo;
 import Productos.ProductoFactory;
-import Productos.Producto;
-import Clientes.Cliente;
 import Productos.Tarjetas.TarjetaCredito;
 
-public class BancoSantander extends Banco {
+public class BancoSantander extends BancoGenerico {
 
     public BancoSantander(String nombre, String direccion) {
         super(nombre, direccion);
@@ -57,6 +55,7 @@ public class BancoSantander extends Banco {
             return null;
         }
     }
+
 
 
 }

@@ -1,12 +1,13 @@
 package Banco;
 
 import Clientes.Cliente;
-import Clientes.Empresa;
-import Clientes.Persona;
 import Empleados.Empleado;
+import Productos.CajaDeSeguridad.CajaDeSeguridad;
 import Productos.Cuentas.Cuenta;
+import Productos.Prestamo.Prestamo;
 import Productos.Producto;
 import Productos.ProductoFactory;
+import Productos.Tarjetas.TarjetaCredito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +15,9 @@ import java.util.List;
 public abstract class Banco {
     private String nombre;
     private String direccion;
-    private final List<Cliente> clientes = new ArrayList<Cliente>();
-    private final List<Producto> productos = new ArrayList<Producto>();
-    private final List<Empleado> empleados = new ArrayList<Empleado>();
+    protected final List<Cliente> clientes = new ArrayList<Cliente>();
+    protected final List<Producto> productos = new ArrayList<Producto>();
+    protected final List<Empleado> empleados = new ArrayList<Empleado>();
 
     public abstract ProductoFactory getFactory(ProductoType tipo);
 
@@ -50,36 +51,28 @@ public abstract class Banco {
 
 
     // Contratacion de empleados.
-    public void contratarEmpleado(Empleado empleado) {
-        this.empleados.add(empleado);
-    }
+    public abstract void contratarEmpleado(Empleado empleado);
 
-    public void contratarEmpleado(String nombre, String apellido, int edad, double salario) {
-        Empleado empleado = new Empleado(nombre, apellido, edad, salario, this);
-        this.empleados.add(empleado);
-    }
+    public abstract void contratarEmpleado(String nombre, String apellido, int edad, double salario);
 
     // Getter de empleados.
-    public List<Empleado> getEmpleados() {
+    public List<Empleado> getEmpleados(){
         return this.empleados;
-    }
+    };
 
-    public Empleado getEmpleado(String nombre) {
+    public Empleado getEmpleado(String nombre){
         return this.empleados.stream()
                 .filter(empleado -> empleado.getNombre().equalsIgnoreCase(nombre))
                 .findFirst()
                 .orElse(null);
-    }
+    };
 
-    public void despedirEmpleado(Empleado empleado) {
-        this.empleados.remove(empleado);
-    }
+    public abstract void despedirEmpleado(Empleado empleado);
 
-    public void despedirEmpleado(String nombre) {
-        this.empleados.remove(this.getEmpleado(nombre));
-    }
+    public abstract void despedirEmpleado(String nombre);
 
     // Gestion de clientes.
+
     public List<Cliente> getClientes() {
         return this.clientes;
     }
@@ -100,22 +93,9 @@ public abstract class Banco {
                 .orElse(null);
     }
 
-    public void agregarCliente(Cliente cliente) {
-        this.clientes.add(cliente);
-    }
+    public abstract void agregarCliente(Cliente cliente);
 
-    public void agregarCliente(String nombre, String direccion, List<String> telefonos, int dniCuit, String tipo) {
-        switch (tipo.toLowerCase()) {
-            case "persona":
-                this.clientes.add(new Persona(nombre, direccion, telefonos, dniCuit));
-                break;
-            case "empresa":
-                this.clientes.add(new Empresa(nombre, direccion, telefonos, dniCuit));
-                break;
-            default:
-                System.out.println("Tipo de cliente no reconocido.");
-        }
-    }
+    public abstract Cliente crearCliente(String nombre, String direccion, List<String> telefonos, int dniCuit, String tipo);
 
     public void eliminarCliente(Cliente cliente) {
         this.clientes.remove(cliente);
@@ -127,6 +107,12 @@ public abstract class Banco {
 
 
     // Gestion Cuentas
+    public abstract void crearCuenta(Cliente titular, ProductoType tipoCuenta, String numeroCuenta, double saldoInicial, int limiteDescubierto);
+
+    private boolean esCuentaDelBanco(Cuenta cuenta) {
+        return this.productos.contains(cuenta);
+    }
+
     private Cuenta getCuenta(String numeroCuenta) {
         return (Cuenta) this.productos.stream()
                 .filter(producto -> producto instanceof Cuenta)
@@ -135,27 +121,10 @@ public abstract class Banco {
                 .orElse(null);
     }
 
-    private boolean esCuentaDelBanco(Cuenta cuenta) {
-        return this.productos.contains(cuenta);
-    }
-
     // Deposito en Cuenta
-    public void depositarEnCuenta(String numeroCuenta, double monto) {
-        Cuenta cuenta = this.getCuenta(numeroCuenta);
-        if (cuenta != null){
-            cuenta.depositar(monto);
-        }else {
-            System.out.println("No se encontro la cuenta " + numeroCuenta);
-        }
-    }
+    public abstract void depositarEnCuenta(String numeroCuenta, double monto);
 
-    public void depositarEnCuenta(Cuenta cuenta, double monto) {
-        if (this.esCuentaDelBanco(cuenta)){
-            cuenta.depositar(monto);
-        }else {
-            System.out.println("La cuenta " + cuenta.getNumeroCuenta() + " no pertenece al banco");
-        }
-    }
+    public abstract void depositarEnCuenta(Cuenta cuenta, double monto);
 
     // Retiro en Cuenta
     private void retiroEnCuenta(Cuenta cuenta, double monto) {
@@ -166,22 +135,10 @@ public abstract class Banco {
             System.out.println("No se pudo realizar la extraccion");
         }
     }
-    public void retirarDeCuenta(String numeroCuenta, double monto) {
-        Cuenta cuenta = this.getCuenta(numeroCuenta);
-        if (cuenta != null){
-            this.retiroEnCuenta(cuenta, monto);
-        }else {
-            System.out.println("No se encontro la cuenta " + numeroCuenta);
-        }
-    }
 
-    public void retirarDeCuenta(Cuenta cuenta, double monto) {
-        if (this.esCuentaDelBanco(cuenta)){
-            this.retiroEnCuenta(cuenta, monto);
-        }else {
-            System.out.println("La cuenta " + cuenta.getNumeroCuenta() + " no pertenece al banco");
-        }
-    }
+    public abstract void retirarDeCuenta(Cliente titular, String numeroCuenta, double monto);
+
+    public abstract void retirarDeCuenta(Cliente titular, Cuenta cuenta, double monto);
 
     // Transferencia entre Cuentas
 
@@ -193,43 +150,74 @@ public abstract class Banco {
             System.out.println("No se pudo realizar la transferencia");
         }
     }
-    public void realizarTransferencia(
-            Cliente cliente,
-            String numeroCuentaOrigen,
-            String numeroCuentaDestino,
-            double monto) {
+    public abstract void realizarTransferencia(Cliente cliente, String numeroCuentaOrigen, String numeroCuentaDestino, double monto);
 
-        Cuenta cuentaOrigen = this.getCuenta(numeroCuentaOrigen);
-        Cuenta cuentaDestino = this.getCuenta(numeroCuentaDestino);
+    public abstract void realizarTransferencia(Cliente cliente, Cuenta cuentaOrigen, Cuenta cuentaDestino, double monto);
 
-        if(cuentaOrigen == null) {
-            System.out.println("No se encontro la cuenta de origen N°" + numeroCuentaOrigen);
-        } else if (!cuentaOrigen.getTitular().equals(cliente)) {
-            System.out.println("La cuenta " + numeroCuentaOrigen + " no pertenece al cliente " + cliente.getNombre());
-        } else if (cuentaDestino == null) {
-            System.out.println("No se encontro la cuenta de destino N°" + numeroCuentaDestino);
-        }else{
-            this.transferir(cuentaOrigen, cuentaDestino, monto);
+    // Gestion de Cajas de Seguridad
+    public abstract void crearCajaSeguridad(Cliente titular, String clave);
+
+    public CajaDeSeguridad getCajaSeguridad(Cliente titular, String clave) {
+        CajaDeSeguridad cajaSeguridad = (CajaDeSeguridad) this.productos.stream()
+                .filter(producto -> producto instanceof CajaDeSeguridad)
+                .filter(producto -> producto.getTitular().equals(titular))
+                .filter(producto -> ((CajaDeSeguridad) producto).getClaveDeAcceso().equals(clave))
+                .findFirst()
+                .orElse(null);
+        if (cajaSeguridad == null) {
+            System.out.println("No se encontro la caja de seguridad, compruebe la clave o el titular");
+        }
+        return cajaSeguridad;
+    }
+
+    public abstract void eliminarCajaSeguridad(Cliente titular, String clave);
+
+    // Gestion Tarjetas de Credito
+    public abstract void crearTarjetaCredito(Cliente titular, String numeroTarjeta, double limiteCredito);
+
+    public TarjetaCredito getTarjetaCredito(Cliente titular, String numeroTarjeta) {
+        return (TarjetaCredito) this.productos.stream()
+                .filter(producto -> producto instanceof TarjetaCredito)
+                .filter(producto -> producto.getTitular().equals(titular))
+                .filter(producto -> ((TarjetaCredito) producto).getNumeroTarjeta().equals(numeroTarjeta))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public abstract void eliminarTarjetaCredito(Cliente titular, String numeroTarjeta);
+
+    // Gestion de Prestamos
+    public void crearPrestamo(Cliente titular, double montoOtorgado, int plazoEnMeses) {
+        if (this.esClienteDelBanco(titular)) {
+            System.out.println("El cliente " + titular.getNombre() + " no pertenece al banco, no se puede otorgar el prestamo.");
+            return;
+        }
+        ProductoFactory factory = this.getFactory(ProductoType.PRESTAMO);
+        if (factory == null) {
+            System.out.println("No se pudo crear el prestamo.");
+        } else {
+            Prestamo prestamo = factory.crearPrestamo(titular, montoOtorgado, plazoEnMeses);
+            this.productos.add(prestamo);
         }
     }
 
-    public void realizarTransferencia(
-            Cliente cliente,
-            Cuenta cuentaOrigen,
-            Cuenta cuentaDestino,
-            double monto) {
-
-        boolean cuentaOrigenPerteneceBanco = this.esCuentaDelBanco(cuentaOrigen);
-        boolean cuentaDestinoPerteneceBanco = this.esCuentaDelBanco(cuentaDestino);
-        if (!cuentaOrigenPerteneceBanco) {
-            System.out.println("La cuenta " + cuentaOrigen.getNumeroCuenta() + " no pertenece al banco");
-        } else if (!cuentaDestinoPerteneceBanco) {
-            System.out.println("La cuenta " + cuentaDestino.getNumeroCuenta() + " no pertenece al banco");
-        } else if (cuentaOrigen.getTitular().equals(cliente)) {
-            System.out.println("La cuenta " + cuentaOrigen.getNumeroCuenta() + " no pertenece al cliente " + cliente.getNombre());
-        } else {
-            this.transferir(cuentaOrigen, cuentaDestino, monto);
+    public Prestamo getPrestamo(Cliente titular) {
+        // toma el primer prestamo activo filtrado.
+        if (this.esClienteDelBanco(titular)) {
+            System.out.println("El cliente " + titular.getNombre() + " no pertenece al banco, no se puede otorgar el prestamo.");
+            return null;
         }
+        Prestamo prestamo = (Prestamo) this.productos.stream()
+                .filter(producto -> producto instanceof Prestamo)
+                .filter(producto -> ((Prestamo) producto).getTitular().equals(titular))
+                .filter(producto -> ((Prestamo) producto).getSaldoRestante() > 0)
+                .findFirst()
+                .orElse(null);
+
+        if (prestamo == null) {
+            System.out.println("No se encontro prestamo activo para el cliente " + titular.getNombre());
+        }
+        return prestamo;
     }
 
 
