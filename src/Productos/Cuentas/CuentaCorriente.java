@@ -1,10 +1,12 @@
-package Cuentas;
+package Productos.Cuentas;
+
+import Clientes.Cliente;
 
 public class CuentaCorriente extends Cuenta {
     private int limiteDescubierto;
 
-    public CuentaCorriente(String numeroCuenta, String titular, double saldoInicial, int limiteDescubierto) {
-        super(numeroCuenta, titular, saldoInicial);
+    public CuentaCorriente(Cliente titular, String numeroCuenta, double saldoInicial, int limiteDescubierto) {
+        super(titular, numeroCuenta, saldoInicial);
         this.limiteDescubierto = limiteDescubierto;
     }
 

@@ -1,14 +1,16 @@
-package Cuentas;
+package Productos.Cuentas;
 
-public abstract class Cuenta {
+import Clientes.Cliente;
+import Productos.Producto;
+
+public abstract class Cuenta extends Producto {
     public String numeroCuenta;
-    public String titular;
     public double saldo;
 
     //Constructor
-    public Cuenta(String numeroCuenta, String titular, double saldoInicial) {
+    public Cuenta(Cliente titular, String numeroCuenta, double saldoInicial) {
+        super(titular);
         this.numeroCuenta = numeroCuenta;
-        this.titular = titular;
         this.saldo = saldoInicial;
     }
 
@@ -16,6 +18,8 @@ public abstract class Cuenta {
     public void depositar(double monto) {
         if (monto > 0) {
             saldo += monto;
+        } else{
+            System.out.println("El monto debe ser mayor a 0.");
         }
     }
 
@@ -35,10 +39,6 @@ public abstract class Cuenta {
 
     public String getNumeroCuenta() {
         return numeroCuenta;
-    }
-
-    public String getTitular() {
-        return titular;
     }
 
     public double getSaldo() {

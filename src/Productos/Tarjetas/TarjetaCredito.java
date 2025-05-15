@@ -1,8 +1,11 @@
-package Tarjetas;
+package Productos.Tarjetas;
+
+import Clientes.Cliente;
+import Productos.Producto;
 
 import java.util.Random;
 
-public class TarjetaCredito {
+public class TarjetaCredito extends Producto {
 
     private final String numeroTarjeta;
     private final double limiteCredito;
@@ -27,7 +30,8 @@ public class TarjetaCredito {
      *  limiteCredito El límite máximo de crédito permitido. Debe ser positivo.
      *  IllegalArgumentException si el número de tarjeta es nulo/vacío o el límite es negativo.
      */
-    public TarjetaCredito(String numeroTarjeta, double limiteCredito) {
+    public TarjetaCredito(Cliente titular, String numeroTarjeta, double limiteCredito) {
+        super(titular);
         if (numeroTarjeta == null || numeroTarjeta.trim().isEmpty()) {
             throw new IllegalArgumentException("El número de tarjeta no puede ser nulo o vacío.");
         }
@@ -94,7 +98,7 @@ public class TarjetaCredito {
      */
 
     public String toString() {
-        return "Tarjetas.TarjetaCredito {" +
+        return "Productos.Tarjetas.TarjetaCredito {" +
                 "numero='" + numeroTarjeta + '\'' +
                 ", limite=" + String.format("%.2f", limiteCredito) +
                 ", saldoDisponible=" + String.format("%.2f", saldoDisponible) +
