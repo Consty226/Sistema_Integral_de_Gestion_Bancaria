@@ -3,8 +3,8 @@ package Cuentas;
 public class CuentaCorriente extends Cuenta {
     private int limiteDescubierto;
 
-    public CuentaCorriente(String numeroCuenta, String titular, double saldoInicial, int limiteDescubierto) {
-        super(numeroCuenta, titular, saldoInicial);
+    public CuentaCorriente(String numeroCuenta, double saldoInicial, int limiteDescubierto) {
+        super(numeroCuenta, saldoInicial);
         this.limiteDescubierto = limiteDescubierto;
     }
 

@@ -14,9 +14,6 @@ public class CajaDeSeguridad {
         this.descripcionContenido = descripcionContenido;
         this.claveDeAcceso = claveDeAcceso;
         this.montoActual = 0;
-        System.out.println("----------------------------------");
-        System.out.println("Caja de seguridad creada");
-        System.out.println("----------------------------------");
     }
 
     public double getMontoActual(){
@@ -34,7 +31,7 @@ public class CajaDeSeguridad {
         }
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
@@ -59,9 +56,19 @@ public class CajaDeSeguridad {
         return claveDeAcceso;
     }
 
-
     public void setClaveDeAcceso(String claveDeAcceso) {
         this.claveDeAcceso = claveDeAcceso;
     }
 
+    public List<String> getContenido(){
+        return this.contenido;
+    }
+
+    public void setContenido(String elemento){
+        this.contenido.add(elemento);
+    }
+
+    public void removerContenido(String elemento){
+        this.contenido.remove(elemento);
+    }
 }

@@ -2,18 +2,29 @@ package Operaciones;
 
 import java.time.LocalDateTime;
 
+import Clientes.Cliente;
+import Cuentas.Cuenta;
+import Empleados.Empleado;
+
 public class OperacionBancaria {
     private String tipo; // Depósito, Extracción, Transferencia, etc.
     private double monto;
     private String descripcion; // Detalles opcionales
-    private String cuentaOrigen;
-    private String cuentaDestino;
-    private String empleadoResponsable;
+    private Cuenta cuentaOrigen;
+    private Cuenta cuentaDestino;
+    private Empleado empleadoResponsable;
     private LocalDateTime fechaHora;
 
     // Constructor
-    public OperacionBancaria(String tipo, double monto, String descripcion,
-                             String cuentaOrigen, String cuentaDestino, String empleadoResponsable) {
+    public OperacionBancaria(
+            String tipo,
+            double monto,
+            String descripcion,
+            Cuenta cuentaOrigen,
+            Cuenta cuentaDestino,
+            Empleado empleadoResponsable,
+            Cliente cliente
+    ) {
         this.tipo = tipo;
         this.monto = monto;
         this.descripcion = descripcion;
@@ -36,15 +47,15 @@ public class OperacionBancaria {
         return descripcion;
     }
 
-    public String getCuentaOrigen() {
+    public Cuenta getCuentaOrigen() {
         return cuentaOrigen;
     }
 
-    public String getCuentaDestino() {
+    public Cuenta getCuentaDestino() {
         return cuentaDestino;
     }
 
-    public String getEmpleadoResponsable() {
+    public Empleado getEmpleadoResponsable() {
         return empleadoResponsable;
     }
 

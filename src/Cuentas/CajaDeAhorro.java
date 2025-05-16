@@ -2,8 +2,8 @@ package Cuentas;
 
 public class CajaDeAhorro extends Cuenta {
 
-    public CajaDeAhorro(String numeroCuenta, String titular, double saldoInicial) {
-        super(numeroCuenta, titular, saldoInicial);
+    public CajaDeAhorro(String numeroCuenta, double saldoInicial) {
+        super(numeroCuenta, saldoInicial);
     }
 
     @Override

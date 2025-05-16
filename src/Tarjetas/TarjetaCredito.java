@@ -7,11 +7,9 @@ public class TarjetaCredito {
     private final String numeroTarjeta;
     private final double limiteCredito;
     private double saldoDisponible;
-
-    /**
-     * Genera un número de tarjeta de crédito aleatorio de 16 dígitos.
-     * @return Un String que representa el número de tarjeta generado.
-     */
+    
+//    Genera un número de tarjeta de crédito aleatorio de 16 dígitos.
+//    @return Un String que representa el número de tarjeta generado.
     public static String generarNumeroTarjeta() {
         Random random = new Random();
         StringBuilder sb = new StringBuilder(16);
@@ -21,13 +19,14 @@ public class TarjetaCredito {
         return sb.toString();
     }
 
-    /**
-     * El saldo disponible inicial es igual al límite de crédito.
-     * @param numeroTarjeta El número único de la tarjeta de crédito.
-     * @param limiteCredito El límite máximo de crédito permitido. Debe ser positivo.
-     * @throws IllegalArgumentException si el número de tarjeta es nulo/vacío o el límite es negativo.
-     */
-    public TarjetaCredito(String numeroTarjeta, double limiteCredito) {
+    
+//     El saldo disponible inicial es igual al límite de crédito.
+//     @param numeroTarjeta El número único de la tarjeta de crédito.
+//     @param limiteCredito El límite máximo de crédito permitido. Debe ser positivo.
+//     @throws IllegalArgumentException si el número de tarjeta es nulo/vacío o el límite es negativo.
+    public TarjetaCredito(Cliente titular, String numeroTarjeta, double limiteCredito) {
+        // Agregacion con Cliente.
+        this.titular = titular;
         if (numeroTarjeta == null || numeroTarjeta.trim().isEmpty()) {
             throw new IllegalArgumentException("El número de tarjeta no puede ser nulo o vacío.");
         }
@@ -65,7 +64,6 @@ public class TarjetaCredito {
                     ". Saldo disponible: $" + String.format("%.2f", this.saldoDisponible));
             return false;
         }
-
         this.saldoDisponible -= monto;
         System.out.println("Consumo de $" + String.format("%.2f", monto) + " registrado. Saldo restante: $" + String.format("%.2f", this.saldoDisponible));
         return true;

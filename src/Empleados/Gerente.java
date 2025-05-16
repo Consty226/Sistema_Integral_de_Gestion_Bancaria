@@ -9,6 +9,4 @@ public class Gerente extends Empleado {
     public String getRol() {
         return "Gerente";
     }
-
-    // Métodos específicos como aprobar préstamos, asignar cajas de seguridad
 }
