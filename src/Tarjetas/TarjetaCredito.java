@@ -1,11 +1,11 @@
 package Tarjetas;
-
+import Clientes.Cliente;
 import java.util.Random;
 
 public class TarjetaCredito {
-
-    private final String numeroTarjeta;
-    private final double limiteCredito;
+    private Cliente titular;
+    private String numeroTarjeta;
+    private double limiteCredito;
     private double saldoDisponible;
     
 //    Genera un número de tarjeta de crédito aleatorio de 16 dígitos.
@@ -51,6 +51,11 @@ public class TarjetaCredito {
     public double getSaldoDisponible() {
         return saldoDisponible;
     }
+    
+    // --- Setters ---
+    public void setLimiteCredito(int limiteCredito){
+        this.limiteCredito = limiteCredito;
+    }
 
     // --- Operaciones ---
 
@@ -79,9 +84,16 @@ public class TarjetaCredito {
         return true;
     }
 
+    public void setTitular(Cliente titular){
+        this.titular = titular;
+    }
+
+    public Cliente getTitular(){
+        return this.titular;
+    }
+
     // --- toString ---
 
-    @Override
     public String toString() {
         return "TarjetaCredito {" +
                 "numero='" + numeroTarjeta + '\'' +

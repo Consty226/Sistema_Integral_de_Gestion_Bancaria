@@ -2,92 +2,32 @@ package Clientes;
 
 import CajaDeSeguridad.CajaDeSeguridad;
 import Cuentas.Cuenta;
-import Prestamo.Prestamo;
-import Tarjetas.TarjetaCredito;
 
 import java.util.*;
 
 public abstract class Cliente {
-    protected String nombre;
-    protected String direccion;
-    protected Set<String> telefonos;
-    protected List<Cuenta> cuentas;
-    protected Set<TarjetaCredito> tarjetas;
-    protected List<Prestamo> prestamos;
-    protected List<CajaDeSeguridad> cajasDeSeguridad;
+    private String nombre;
+    private String direccion;
+    private Set<String> telefonos;
+    private List<Cuenta> cuentas = new ArrayList<Cuenta>();
+    private CajaDeSeguridad cajasDeSeguridad;
 
-    public Cliente(String nombre, String direccion, List<String> telefonos) {
+    public Cliente(String nombre, String direccion, List<String> telefonos, String claveCaja) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefonos = new HashSet<>(telefonos); // evita duplicados si vienen desde una lista
 
-        this.cuentas = new ArrayList<>();
-        this.tarjetas = new HashSet<>();
-        this.prestamos = new ArrayList<>();
-        this.cajasDeSeguridad = new ArrayList<>();
+        // Definicion de Composicion con CajaDeSeguridad
+        this.cajasDeSeguridad = new CajaDeSeguridad(this, claveCaja);
     }
 
-    // ---- Cuentas ----
+    // ---- Caja ----
 
-    public void vincularCuenta(Cuenta cuenta) {
-        this.cuentas.add(cuenta);
-    }
-
-    public void desvincularCuenta(Cuenta cuenta) {
-        if (this.cuentas.size() > 1) {
-            this.cuentas.remove(cuenta);
-        } else {
-            System.out.println("El cliente debe poseer al menos una Cuenta.");
-        }
-    }
-
-    public List<Cuenta> getCuentas() {
-        return this.cuentas;
-    }
-
-    // ---- Tarjetas ----
-
-    public void vincularTarjeta(TarjetaCredito tarjeta) {
-        if (!this.tarjetas.add(tarjeta)) {
-            System.out.println("La tarjeta ya está registrada para este cliente.");
-        }
-    }
-
-    public void desvincularTarjeta(TarjetaCredito tarjeta) {
-        if (this.tarjetas.size() > 1) {
-            this.tarjetas.remove(tarjeta);
-        } else {
-            System.out.println("El cliente debe poseer al menos una Tarjeta.");
-        }
-    }
-
-    public Set<TarjetaCredito> getTarjetas() {
-        return this.tarjetas;
-    }
-
-    // ---- Préstamos ----
-
-    public void vincularPrestamo(Prestamo prestamo) {
-        this.prestamos.add(prestamo);
-    }
-
-    public List<Prestamo> getPrestamos() {
-        return this.prestamos;
-    }
-
-    // ---- Cajas de Seguridad ----
-
-    public void vincularCajaSeguridad(CajaDeSeguridad caja) {
-        this.cajasDeSeguridad.add(caja);
-    }
-
-    public void desvincularCajaSeguridad(CajaDeSeguridad caja) {
-        this.cajasDeSeguridad.remove(caja);
-    }
-
-    public List<CajaDeSeguridad> getCajasDeSeguridad() {
+    public CajaDeSeguridad getCajaDeSeguridad() {
         return this.cajasDeSeguridad;
     }
+
+    public void setCajasDeSeguridad(CajaDeSeguridad caja) {this.cajasDeSeguridad = caja;}
 
     // ---- Datos personales ----
 
@@ -119,5 +59,33 @@ public abstract class Cliente {
 
     public Set<String> getTelefonos() {
         return this.telefonos;
+    }
+
+    public List<Cuenta> getCuentas(){
+        return this.cuentas;
+    }
+
+    public void setCuentas(Cuenta cuenta){
+        if (this.esCuentaDelCliente(cuenta)){
+            System.out.println("Esta cuenta ya se encuentra vinculada al cliente.");
+            return;
+        }
+        this.cuentas.add(cuenta);
+    }
+
+    public boolean esCuentaDelCliente(Cuenta cuenta){
+        return this.cuentas.contains(cuenta);
+    }
+
+    public void eliminarCuenta(Cuenta cuenta){
+        this.cuentas.remove(cuenta);
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente {" +
+                "Nombre='" + this.getNombre() + '\'' +
+                ", Tipo=" + this.getClass().getSimpleName() +
+                '}';
     }
 }

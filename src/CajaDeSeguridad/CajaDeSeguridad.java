@@ -1,17 +1,31 @@
 package CajaDeSeguridad;
-public class CajaDeSeguridad {
+import Clientes.Cliente;
 
-    private int numero;
-    private String descripcionContenido;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class CajaDeSeguridad {
+    private Cliente titular;
+    private String numero;
     private String claveDeAcceso;
     private double montoActual;
+    private List<String> contenido = new ArrayList<>();
+
 
     //Se actualizaron los atributos para cumplir con la consigna “Cada caja de
 // seguridad posee un número y descripción del contenido. Su existencia está ligada al cliente.”
-
-    public CajaDeSeguridad(int numero, String descripcionContenido, String claveDeAcceso){
-        this.numero = numero;
-        this.descripcionContenido = descripcionContenido;
+    public static String generarNumeroCaja() {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(16);
+        for (int i = 0; i < 16; i++) {
+            sb.append(random.nextInt(10)); // Genera un dígito aleatorio (0-9)
+        }
+        return sb.toString();
+    }
+    public CajaDeSeguridad(Cliente titular, String claveDeAcceso){
+        this.numero = CajaDeSeguridad.generarNumeroCaja();
+        this.titular = titular;
         this.claveDeAcceso = claveDeAcceso;
         this.montoActual = 0;
     }
@@ -33,14 +47,6 @@ public class CajaDeSeguridad {
 
     public String getNumero() {
         return numero;
-    }
-
-    public String getDescripcionContenido() {
-        return descripcionContenido;
-    }
-
-    public void setDescripcionContenido(String descripcionContenido) {
-        this.descripcionContenido = descripcionContenido;
     }
 
     public void depositarDinero(double cantidadDepositada){

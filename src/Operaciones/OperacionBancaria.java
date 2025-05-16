@@ -14,6 +14,7 @@ public class OperacionBancaria {
     private Cuenta cuentaDestino;
     private Empleado empleadoResponsable;
     private LocalDateTime fechaHora;
+    private Cliente cliente;
 
     // Constructor
     public OperacionBancaria(
@@ -32,6 +33,7 @@ public class OperacionBancaria {
         this.cuentaDestino = cuentaDestino;
         this.empleadoResponsable = empleadoResponsable;
         this.fechaHora = LocalDateTime.now(); // Captura fecha y hora actuales
+        this.cliente = cliente;
     }
 
     // Getters
@@ -70,6 +72,7 @@ public class OperacionBancaria {
                 " | Empleado: " + empleadoResponsable +
                 " | Origen: " + (cuentaOrigen != null ? cuentaOrigen : "-") +
                 " | Destino: " + (cuentaDestino != null ? cuentaDestino : "-") +
+                " | Cliente: " + (cliente != null ? cliente: "-") +
                 " | " + descripcion;
     }
 }

@@ -5,7 +5,7 @@ public abstract class Cuenta {
     public double saldo;
 
     //Constructor
-    public Cuenta(String numeroCuenta, String titular, double saldoInicial) {
+    public Cuenta(String numeroCuenta, double saldoInicial) {
         this.numeroCuenta = numeroCuenta;
         this.saldo = saldoInicial;
     }
@@ -37,5 +37,12 @@ public abstract class Cuenta {
 
     public double getSaldo() {
         return saldo;
+    }
+
+    public String toString() {
+        return "Cuenta {" +
+                "Numero='" + this.getNumeroCuenta() + '\'' +
+                ", Tipo=" + this.getClass().getSimpleName() +
+                '}';
     }
 }

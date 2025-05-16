@@ -6,6 +6,7 @@ import Cuentas.Cuenta;
 import Empleados.Empleado;
 import Prestamo.Prestamo;
 import Tarjetas.TarjetaCredito;
+import Clientes.Cliente;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,15 +48,24 @@ public class BancoServicio {
     }
 
     // --- TRANSFERENCIA ---
-    public void realizarTransferencia(Cuenta origen, Cuenta destino, double monto, Empleado empleado) {
+    public void realizarTransferencia(Cliente titularOrigen, Cuenta origen, Cuenta destino, double monto, Empleado empleado) {
+        if(!empleado.getRol().equals("Cajero")){
+            System.out.println("El empleado no tiene permiso para realizar esta operacion");
+            return;
+        }
+        if(!titularOrigen.esCuentaDelCliente(origen)){
+            System.out.println("La cuenta de Origen no pertenece al cliente que desea realizar la transferencia.");
+            return;
+        }
         if (origen.transferir(destino, monto)) {
             historial.add(new OperacionBancaria(
                     "Transferencia",
                     monto,
                     "Transferencia entre cuentas",
-                    origen.getNumeroCuenta(),
-                    destino.getNumeroCuenta(),
-                    empleado.getNombre()
+                    origen,
+                    destino,
+                    empleado,
+                    titularOrigen
             ));
             System.out.println("Transferencia realizada correctamente.");
         } else {
@@ -76,7 +86,15 @@ public class BancoServicio {
     }
 
     // --- EXTRACCIÓN ---
-    public void realizarExtraccion(Cuenta cuenta, double monto, Empleado empleado) {
+    public void realizarExtraccion(Cliente titular, Cuenta cuenta, double monto, Empleado empleado) {
+        if(!empleado.getRol().equals("Cajero")){
+            System.out.println("El empleado no tiene permiso para realizar esta operacion");
+            return;
+        }
+        if(!titular.esCuentaDelCliente(cuenta)){
+            System.out.println("La cuenta no pertenece al cliente que desea realizar la extraccion.");
+            return;
+        }
         if (monto <= 0) {
             System.out.println("El monto debe ser mayor que cero.");
             return;

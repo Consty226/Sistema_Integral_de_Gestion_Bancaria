@@ -11,6 +11,7 @@ import Servicio.BancoServicio;
 import Tarjetas.TarjetaCredito;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -28,12 +29,10 @@ public class Main {
         cliente1.setCuentas(cuentaCorriente);
 
         // --- 4. Crear tarjeta y vincular ---
-        TarjetaCredito tarjeta = new TarjetaCredito(TarjetaCredito.generarNumeroTarjeta(), 10000);
-        cliente1.vincularTarjeta(tarjeta);
+        TarjetaCredito tarjeta = new TarjetaCredito(cliente1, TarjetaCredito.generarNumeroTarjeta(), 10000);
 
         // --- 5. Crear préstamo y vincular ---
         Prestamo prestamo = new Prestamo(20000, 0.2);
-        cliente1.vincularPrestamo(prestamo);
 
         // --- 6. Crear servicio bancario ---
         BancoServicio banco = new BancoServicio();

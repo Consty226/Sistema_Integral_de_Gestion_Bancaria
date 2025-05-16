@@ -18,4 +18,11 @@ public abstract class Empleado {
     }
 
     public abstract String getRol();
+
+    public String toString() {
+        return "Empleado {" +
+                "Nombre='" + this.getNombre() + '\'' +
+                ", Rol=" + this.getRol() +
+                '}';
+    }
 }
