@@ -9,7 +9,6 @@ import Empleados.Gerente;
 import Prestamo.Prestamo;
 import Servicio.BancoServicio;
 import Tarjetas.TarjetaCredito;
-
 import java.util.Arrays;
 import java.util.List;
 

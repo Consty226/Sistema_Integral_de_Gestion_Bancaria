@@ -1,8 +1,8 @@
 package Empleados;
 
 public abstract class Empleado {
-    protected String nombre;
-    protected int legajo;
+    private String nombre;
+    private int legajo;
 
     public Empleado(String nombre, int legajo) {
         this.nombre = nombre;
