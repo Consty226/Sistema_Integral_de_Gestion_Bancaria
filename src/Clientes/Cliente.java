@@ -8,26 +8,21 @@ import java.util.*;
 public abstract class Cliente {
     private String nombre;
     private String direccion;
-    private Set<String> telefonos;
-    private List<Cuenta> cuentas = new ArrayList<Cuenta>();
-    private CajaDeSeguridad cajasDeSeguridad;
+    private Set<String> telefonos = new HashSet<>();
+    private List<Cuenta> cuentas = new ArrayList<>();
+    private CajaDeSeguridad cajaDeSeguridad;
 
-    public Cliente(String nombre, String direccion, List<String> telefonos, String claveCaja) {
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefonos = new HashSet<>(telefonos); // evita duplicados si vienen desde una lista
-
-        // Definicion de Composicion con CajaDeSeguridad
-        this.cajasDeSeguridad = new CajaDeSeguridad(this, claveCaja);
-    }
+    // Método abstracto obligatorio
+    public abstract String tipoCliente();
 
     // ---- Caja ----
-
     public CajaDeSeguridad getCajaDeSeguridad() {
-        return this.cajasDeSeguridad;
+        return this.cajaDeSeguridad;
     }
 
-    public void setCajasDeSeguridad(CajaDeSeguridad caja) {this.cajasDeSeguridad = caja;}
+    public void setCajasDeSeguridad(CajaDeSeguridad caja) {
+        this.cajaDeSeguridad = caja;
+    }
 
     // ---- Datos personales ----
 
@@ -61,23 +56,23 @@ public abstract class Cliente {
         return this.telefonos;
     }
 
-    public List<Cuenta> getCuentas(){
+    public List<Cuenta> getCuentas() {
         return this.cuentas;
     }
 
-    public void setCuentas(Cuenta cuenta){
-        if (this.esCuentaDelCliente(cuenta)){
+    public void setCuentas(Cuenta cuenta) {
+        if (this.esCuentaDelCliente(cuenta)) {
             System.out.println("Esta cuenta ya se encuentra vinculada al cliente.");
             return;
         }
         this.cuentas.add(cuenta);
     }
 
-    public boolean esCuentaDelCliente(Cuenta cuenta){
+    public boolean esCuentaDelCliente(Cuenta cuenta) {
         return this.cuentas.contains(cuenta);
     }
 
-    public void eliminarCuenta(Cuenta cuenta){
+    public void eliminarCuenta(Cuenta cuenta) {
         this.cuentas.remove(cuenta);
     }
 
